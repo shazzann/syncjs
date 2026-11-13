@@ -1,0 +1,215 @@
+@import "tailwindcss";
+
+/* SyncJS brand tokens (design system v2.1, light only). Use tokens by name. */
+@theme {
+  --color-*: initial;
+  --color-canvas: #f5fafa;
+  --color-surface: #ffffff;
+  --color-surface-muted: #eaf3f2;
+  --color-ink: #172b2d;
+  --color-ink-muted: #557276;
+  --color-line: #dfeaea;
+  --color-line-strong: #728d8f;
+  --color-brand: #123b40;
+  --color-action: #123b40;
+  --color-action-hover: #0d2e32;
+  --color-on-action: #ffffff;
+  --color-on-brand: #f5fafa;
+  --color-on-brand-muted: #a9c9c8;
+  --color-action-on-brand: #bceae5;
+  --color-link: #06767a;
+  --color-signal: #16b8b0;
+  --color-highlight: #bceae5;
+  --color-focus: #06767a;
+  --color-success: #1f7a4d;
+  --color-success-bg: #e3f4ea;
+  --color-warning: #8f5300;
+  --color-warning-bg: #fcf1dc;
+  --color-danger: #b4232f;
+  --color-danger-bg: #fbe7e8;
+  --color-white: #ffffff;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+
+  --shadow-float: 0 12px 32px rgba(18, 59, 64, 0.12), 0 1px 3px rgba(18, 59, 64, 0.1);
+
+  --container-site: 1200px;
+  --container-measure: 640px;
+
+  --ease-sx: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --default-transition-duration: 160ms;
+  --default-transition-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans), "Inter", system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+
+/* Type scale. Mobile first, desktop sizes from the design system. */
+@utility type-display {
+  font-size: 40px;
+  line-height: 44px;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  @media (width >= 48rem) { font-size: 52px; line-height: 54px; }
+  @media (width >= 64rem) { font-size: 64px; line-height: 64px; }
+}
+@utility type-h1 {
+  font-size: 34px;
+  line-height: 40px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  @media (width >= 48rem) { font-size: 44px; line-height: 48px; }
+}
+@utility type-h2 {
+  font-size: 26px;
+  line-height: 32px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  @media (width >= 48rem) { font-size: 32px; line-height: 38px; }
+}
+@utility type-h3 {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+@utility type-body-lg {
+  font-size: 17px;
+  line-height: 28px;
+  @media (width >= 48rem) { font-size: 18px; line-height: 30px; }
+}
+@utility type-body {
+  font-size: 15px;
+  line-height: 25px;
+  @media (width >= 48rem) { font-size: 16px; line-height: 26px; }
+}
+@utility type-small {
+  font-size: 14px;
+  line-height: 22px;
+}
+@utility type-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+@utility type-mono {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 22px;
+}
+@utility type-stat {
+  font-family: var(--font-mono);
+  font-size: 34px;
+  line-height: 40px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  @media (width >= 48rem) { font-size: 40px; line-height: 44px; }
+}
+
+/* Page gutters: 16px phone, 24px tablet, 48px desktop. */
+@utility container-site {
+  width: 100%;
+  max-width: calc(var(--container-site) + 2 * 48px);
+  margin-inline: auto;
+  padding-inline: 16px;
+  @media (width >= 40rem) { padding-inline: 24px; }
+  @media (width >= 64rem) { padding-inline: 48px; }
+}
+
+/* Section rhythm: space-16 mobile, space-24 desktop. */
+@utility section {
+  padding-block: 64px;
+  @media (width >= 64rem) { padding-block: 96px; }
+}
+
+@layer base {
+  html {
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-padding-top: 88px;
+    scroll-behavior: smooth; /* fallback before JS loads; Lenis takes over */
+  }
+  body {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100dvh;
+  }
+  ::selection { background: var(--color-highlight); color: var(--color-ink); }
+  :focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition-duration: 0ms !important; animation-duration: 0ms !important; scroll-behavior: auto !important; }
+  }
+}
+
+/* The one highlight per screen. */
+.sx-mark {
+  background: linear-gradient(transparent 58%, var(--color-highlight) 58%);
+  color: inherit;
+  padding: 0 2px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Long-form text (blog posts, case studies). */
+.prose { color: var(--color-ink); font-size: 17px; line-height: 1.7; max-width: var(--container-measure); }
+.prose > * + * { margin-top: 1.1em; }
+.prose h2 { font-size: 26px; line-height: 32px; font-weight: 500; letter-spacing: -0.02em; margin-top: 2em; }
+.prose h3 { font-size: 20px; line-height: 28px; font-weight: 500; letter-spacing: -0.01em; margin-top: 1.6em; }
+.prose a { color: var(--color-link); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.prose a:hover { text-decoration-thickness: 2px; }
+.prose ul, .prose ol { padding-left: 1.25em; }
+.prose ul { list-style: disc; }
+.prose ol { list-style: decimal; }
+.prose li + li { margin-top: 0.4em; }
+.prose li::marker { color: var(--color-ink-muted); }
+.prose strong { font-weight: 600; }
+.prose blockquote { border-top: 1px solid var(--color-line); border-bottom: 1px solid var(--color-line); padding: 16px 0; font-size: 20px; line-height: 30px; letter-spacing: -0.01em; }
+.prose code { font-family: var(--font-mono); font-size: 0.88em; background: var(--color-surface-muted); border: 1px solid var(--color-line); border-radius: var(--radius-sm); padding: 1px 5px; }
+.prose pre { font-family: var(--font-mono); font-size: 14px; line-height: 22px; background: var(--color-surface); border: 1px solid var(--color-line); border-radius: var(--radius-lg); padding: 16px 20px; overflow-x: auto; }
+.prose pre code { background: none; border: 0; padding: 0; font-size: inherit; }
+.prose hr { border: 0; border-top: 1px solid var(--color-line); margin: 2.5em 0; }
+@media (width < 48rem) { .prose { font-size: 16px; } }
+
+/* ───────── Premium layer ─────────
+   Shape rule: buttons are pills, images and panels 14px, inputs 10px.
+   Motion is quiet: content fades up once, images ease on hover. */
+
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 800ms cubic-bezier(0.16, 1, 0.3, 1), transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--d, 0) * 70ms);
+}
+.js [data-reveal][data-shown] { opacity: 1; transform: none; }
+
+@keyframes fade-up { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.fade-up { animation: fade-up 900ms cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: calc(var(--d, 0) * 1ms); }
+/* --d means milliseconds on .fade-up but a step index on [data-reveal]; stop it leaking into children. */
+.fade-up * { --d: 0; }
+
+.ease-img { transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1); }
+.group:hover .ease-img { transform: scale(1.025); }
+
+/* Client carousel: list rendered twice, slides half its width, loops. */
+@keyframes marquee { to { transform: translateX(-50%); } }
+.marquee { display: flex; width: max-content; animation: marquee 45s linear infinite; }
+.marquee-wrap:hover .marquee { animation-play-state: paused; }
+.marquee-wrap { mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent); }
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] { opacity: 1; transform: none; }
+  .fade-up { animation: none !important; }
+  .ease-img { transition: none; }
+  .marquee { animation: none; flex-wrap: wrap; width: auto; }
+  .marquee > ul[aria-hidden] { display: none; }
+}
