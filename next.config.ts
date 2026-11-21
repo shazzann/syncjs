@@ -12,6 +12,9 @@ const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "mdx"],
   poweredByHeader: false,
   images: { formats: ["image/avif", "image/webp"] },
+  experimental: {
+    agentUpgrade: "security",
+  },
   // The services page was merged into the home page.
   async redirects() {
     return [{ source: "/services", destination: "/#services", permanent: true }];
